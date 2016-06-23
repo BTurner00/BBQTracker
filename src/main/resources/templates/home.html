@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BBQ Tracker</title>
+</head>
+<body>
+{{^username}}
+<form action="/login" method="post">
+    <input type="text" name="username" placeholder="Name"/>
+    <input type="password" name="password" placeholder="Password"/>
+    <button type="submit">Login</button>
+</form>
+{{/username}}
+
+{{#username}}
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+
+<br><br>
+
+<form action="/create-bbq" method="post">
+    <input type="text" name="name" placeholder="Name"/>
+    <input type="text" name="cooktime" placeholder="Time on the grill"/>
+    <input type="datetime-local" name="starttime" value="{{now}}"/>
+    <button type="submit">Create Event</button>
+</form>
+
+{{/username}}
+</body>
+</html>

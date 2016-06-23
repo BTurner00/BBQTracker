@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BBQTracker.iml" filepath="$PROJECT_DIR$/.idea/modules/BBQTracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BBQTracker_main.iml" filepath="$PROJECT_DIR$/.idea/modules/BBQTracker_main.iml" group="BBQTracker" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BBQTracker_test.iml" filepath="$PROJECT_DIR$/.idea/modules/BBQTracker_test.iml" group="BBQTracker" />
+    </modules>
+  </component>
+</project>
