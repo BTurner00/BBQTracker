@@ -18,15 +18,40 @@
     <button type="submit">Logout</button>
 </form>
 
-<br><br>
+<br>
 
 <form action="/create-bbq" method="post">
     <input type="text" name="name" placeholder="Name"/>
-    <input type="text" name="cooktime" placeholder="Time on the grill"/>
-    <input type="datetime-local" name="starttime" value="{{now}}"/>
-    <button type="submit">Create Event</button>
+    <input type="text" name="cookTime" placeholder="Time on the grill"/>
+    <input type="datetime-local" name="startTime" value="{{now}}"/>
+    <button type="submit">Add Meat</button>
 </form>
 
 {{/username}}
+<br>
+
+{{#bbqs}}
+{{name}} {{cookTime}} {{startTime}}
+<form action="/delete-bbq" method="post" style="display: inline-block">
+    <input type="hidden" name="deleteid" value="{{id}}"/>
+    <button type="submit">Delete</button>
+</form>
+{{^editvis}}
+<form action="/edit-button" method="post" style="display: inline-block">
+    <input type="hidden" name="editid" value="{{id}}"/>
+    <button type="submit">Edit</button>
+</form>
+
+{{/editvis}}
+{{#editvis}}
+<form action="/edit-bbq" method="post">
+    <input type="text" name="name" placeholder="Name"/>
+    <input type="text" name="cookTime" placeholder="Time on the grill"/>
+    <input type="datetime-local" name="startTime" value="{{now}}"/>
+    <button type="submit">Confirm Edit</button>
+</form>
+{{/editvis}}
+<br/>
+{{/bbqs}}
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.theironyard.controllers;
 
+import com.theironyard.entities.Bbq;
 import com.theironyard.entities.User;
 import com.theironyard.services.BbqRepository;
 import com.theironyard.services.UserRepository;
@@ -28,9 +29,11 @@ public class BBQTrackerController {
     @RequestMapping(path="/", method = RequestMethod.GET)
     public String home(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
+        Boolean editVis = (Boolean) session.getAttribute("editvis");
         model.addAttribute("bbqs", bbqs.findAll());
         model.addAttribute("username", username);
         model.addAttribute("now", LocalDateTime.now());
+        model.addAttribute("editvis", editVis);
         return "home";
     }
 
@@ -51,6 +54,44 @@ public class BBQTrackerController {
     @RequestMapping(path="/logout", method = RequestMethod.POST)
     public String logout(HttpSession session) {
         session.invalidate();
+        return "redirect:/";
+    }
+
+    @RequestMapping(path="/create-bbq", method = RequestMethod.POST)
+    public String createBbq (HttpSession session, String name, String startTime, String cookTime) {
+        String username = (String) session.getAttribute("username");
+        User user = users.findByName(username);
+        Bbq bbq = new Bbq(name, Double.valueOf(cookTime), LocalDateTime.parse(startTime), user);
+        bbqs.save(bbq);
+        return "redirect:/";
+    }
+
+    @RequestMapping(path="/delete-bbq", method = RequestMethod.POST)
+    public String deleteBbq(int deleteid) {
+        bbqs.delete(deleteid);
+        return "redirect:/";
+    }
+
+    @RequestMapping(path="/edit-bbq", method = RequestMethod.POST)
+    public String editBbq(HttpSession session, String name, String startTime, String cookTime) {
+        String username = (String) session.getAttribute("username");
+        boolean editVis = false;
+        session.setAttribute("editvis", editVis);
+        User user = users.findByName(username);
+        Integer editId = (Integer)(session.getAttribute("editid"));
+        Bbq bbq = new Bbq(editId, name, Double.valueOf(cookTime), LocalDateTime.parse(startTime), user);
+        bbqs.save(bbq);
+
+        return "redirect:/";
+    }
+
+    @RequestMapping(path="/edit-button", method = RequestMethod.POST)
+    public String editButton (HttpSession session, Integer editid) {
+        String username = (String) session.getAttribute("username");
+        User user = users.findByName(username);
+        boolean editVis = true;
+        session.setAttribute("editvis", editVis);
+        session.setAttribute("editid", editid);
         return "redirect:/";
     }
 

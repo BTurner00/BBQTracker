@@ -13,7 +13,7 @@ public class User {
     int id;
 
     @Column(nullable = false, unique = true)
-    String username;
+    String name;
 
     @Column(nullable = false)
     String password;
@@ -21,8 +21,8 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password) {
-        this.username = username;
+    public User(String name, String password) {
+        this.name = name;
         this.password = password;
     }
 
@@ -34,12 +34,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
