@@ -32,6 +32,7 @@
 
 {{#bbqs}}
 {{name}} {{cookTime}} {{startTime}}
+{{#userpost}}
 <form action="/delete-bbq" method="post" style="display: inline-block">
     <input type="hidden" name="deleteid" value="{{id}}"/>
     <button type="submit">Delete</button>
@@ -51,6 +52,7 @@
     <button type="submit">Confirm Edit</button>
 </form>
 {{/editvis}}
+{{/userpost}}
 <br/>
 {{/bbqs}}
 </body>

@@ -30,10 +30,27 @@ public class BBQTrackerController {
     public String home(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
         Boolean editVis = (Boolean) session.getAttribute("editvis");
-        model.addAttribute("bbqs", bbqs.findAll());
+        Iterable<Bbq> bbqList = bbqs.findAll();
+        Boolean userPost;
+
+
+        //credit to dan voss for assistance in making this code work
+        //sets visibility boolean for post ownership re: edit and delete buttons
+        for (Bbq b: bbqList) {
+            if (username!= null && username.equals(b.getUser().getName())) {
+                userPost = true;
+            } else{
+                userPost = false;
+            }
+
+            model.addAttribute("userpost", userPost);
+        }
+
+        model.addAttribute("bbqs", bbqList);
         model.addAttribute("username", username);
         model.addAttribute("now", LocalDateTime.now());
         model.addAttribute("editvis", editVis);
+
         return "home";
     }
 
